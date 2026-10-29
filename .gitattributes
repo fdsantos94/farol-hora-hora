@@ -1,0 +1,11 @@
+# 1. Ignorar arquivos binários e mídias nas estatísticas
+dist/* linguist-vendored
+assets/* linguist-vendored
+
+# 2. Garantir que o VBA seja reconhecido nas pastas kebab-case
+src/modules/*.bas linguist-language=VBA
+src/class-modules/*.cls linguist-language=VBA
+src/forms/*.frm linguist-language=VBA
+
+# 3. Forçar a detecção de código na pasta src
+src/** linguist-detectable=true

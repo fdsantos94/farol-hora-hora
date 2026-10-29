@@ -1,0 +1,11 @@
+# Arquivos temporários e de travamento do Excel
+~$*.xlsx
+~$*.xlsm
+~$*.xlsb
+
+# Arquivos de sistema
+Thumbs.db
+.DS_Store
+
+# Cache do VS Code
+.vscode/
