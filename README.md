@@ -143,17 +143,6 @@ Manipulação de eventos de interface e escopo das planilhas (`Worksheets` / `Wo
 
 ---
 
-## 🎯 Métricas & Indicadores Monitorados
-
-| Indicador | Sigla / Métrica | Descrição |
-| :--- | :--- | :--- |
-| **Forecast** | Previsão | Volume previsto de contatos/chamadas projetado para o intervalo. |
-| **Volumetria** | Realizado | Volume efetivamente recebido, atendido e retido no período. |
-| **Tempos de Atendimento** | TMA / TME | Tempo Médio de Atendimento e Tempo Médio de Espera. |
-| **Nível de Serviço** | NS (%) | Percentual de chamadas atendidas dentro do SLA pré-estabelecido. |
-
----
-
 ## 📂 Arquitetura do Repositório
 
 Organização estrutural projetada para controle de versão granular e separação de responsabilidades:
