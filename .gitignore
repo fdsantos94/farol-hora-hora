@@ -9,3 +9,13 @@ Thumbs.db
 
 # Cache do VS Code
 .vscode/
+
+# Executáveis e planilhas compiladas
+*.xlsb
+*.xlsx
+*.xlsm
+*.xls
+
+# Ignorar todo o conteúdo da dist, exceto o arquivo de preservação
+dist/*
+!dist/.gitkeep
