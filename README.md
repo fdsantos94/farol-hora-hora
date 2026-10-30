@@ -1,82 +1,141 @@
-# 📊 WFM Performance Dashboard — Intradia & Aderência
+# 🚦 Farol Hora a Hora | Dashboard & Analytics Intraday
 
-![Excel](https://img.shields.io/badge/Microsoft_Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)
-![SQL Server](https://img.shields.io/badge/T--SQL-CC292B?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
-![VBA](https://img.shields.io/badge/VBA-0073EC?style=for-the-badge&logo=visual-basic&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-brightgreen?style=for-the-badge)
+[![Excel](https://img.shields.io/badge/Excel-.XLSB-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)](#)
+[![VBA](https://img.shields.io/badge/VBA-Automated-blue?style=for-the-badge)](#)
+[![SQL](https://img.shields.io/badge/SQL-Server-CC292B?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)](#)
+[![Refresh](https://img.shields.io/badge/Atualização-A_cada_30_min-orange?style=for-the-badge)](#)
 
-> Solution de Workforce Management (WFM) projetada para auditoria operacional de Call Center em janelas intradia de 30 minutos, integrando análise de capacidade, curvas de oferta, desvios de TMA e métricas de Aderência em layout executivo.
-
----
-
-## 📌 Visão Geral da Solução
-
-O dashboard consolida dados operacionais de atendimento telefônico, mitigando distorções volumétricas e permitindo que a gestão tome decisões táticas com base em dados auditáveis. A arquitetura visual adota a paleta corporativa **Laranja (Alta Demanda/Alerta)**, **Grafite (Baixa Demanda/Fundo)** e **Branco (Contraste/Sinalização)**.
-
-### 🧩 Módulos do Sistema
-
-1. **OnePage (Executive Summary):** Visão holística de tráfego, nível de serviço, taxa de ocupação e entregas de escala em um único painel de alta densidade informativa.
-2. **Volumetria:** Análise detalhada de chamadas Oferecidas, Atendidas, Abandonadas, Efetuadas e Transferidas, desdobradas por turno (Manhã, Tarde, Noite) e janelas de demanda.
-3. **TMA & TME (Intradia e Aderência):**
-   * **Intradia:** Evolução temporal do Tempo Médio de Atendimento (TMA) vs. Planejado por turno e por intervalo de 30 minutos.
-   * **Aderência:** Análise de dispersão relativa indicando **Sobrecarga de TMA** nos $N$ maiores picos e **Alívio de TMA** nas janelas de menor pressão.
+O **Farol Hora a Hora** é um ecossistema de relatórios tático-operacionais desenvolvido em Excel com automação robusta em VBA e consultas SQL otimizadas. Atualizado em ciclos rigorosos de **30 minutos**, o sistema consolida indicadores intraday essenciais para a tomada de decisão rápida e controle de operação.
 
 ---
 
-## 📐 Métricas e Regras de Negócio
+## 🖼️ Visão Geral
 
-Para garantir rigor matemático e evitar distorções de interpretação por usuários não técnicos, o painel aplica as seguintes convenções:
+![Capa do Relatório](assets/img/capa.png)
 
-| Métrica | Conceito / Fórmula | Aplicação no Dashboard |
+---
+## 📊 Painéis Executivos & Dashboards
+
+### 1. Dashboard OnePage
+Centralizador executivo com visão macro integrada da operação, ideal para tomadores de decisão que precisam de um diagnóstico rápido da operação em uma única tela.
+
+![Dashboard OnePage](assets/img/dashboard-onepage.png)
+
+- **Pontos Altos:**
+  - **KPIs de Alto Impacto:** Painel com cartões consolidados de volumetria (*Planejadas, Oferecidas, Atendidas, Abandonadas*), tempos (*TMA e TME*), dimensionamento (*HC Planejado vs Realizado*, *Taxa de Ocupação*) e controle de pausas.
+  - **Gauge Dinâmico de SLA:** Medidor visual de Nível de Serviço (%NS) integrado ao acompanhamento de aderência dos intervalos do dia (*Entregues vs Não Entregues*).
+
+---
+
+### 2. Dashboard Volumetria (Visão Comparativa)
+Ferramenta desenvolvida para análise cruzada de dois indicadores volumétricos simultâneos ao longo dos intervalos do dia.
+
+![Dashboard Volumetria Comparativo](assets/img/dashboard-volumetria-comparativo.png)
+
+- **Pontos Altos:**
+  - **Análise Bi-Paramétrica:** Permite selecionar e comparar dois indicadores no mesmo gráfico intraday (ex: *Atendidas* vs *Atendidas em até 20s* ou *Oferecidas* vs *Abandonadas*).
+  - **Visão por Turno:** Consolidação dos volumes dividida entre os turnos *Manhã*, *Tarde* e *Noite* para rápida identificação de sazonalidades operacionais.
+
+---
+
+### 3. Dashboard Volumetria (Visão Única)
+Focado na análise de curva de tráfego e segmentação por intensidade de demanda da operação.
+
+![Dashboard Volumetria Único](assets/img/dashboard-volumetria-unico.png)
+
+- **Pontos Altos:**
+  - **Classificação de Demanda:** Separação automática entre intervalos de *Alta Demanda* e *Baixa Demanda*, destacando picos operacionais em cores contrastantes.
+  - **Métrica de Concentração:** Gráfico radial em rosca calculando o percentual exato da volumetria retida nos horários de maior pico.
+
+---
+
+### 4. Dashboard Nível de Serviço (Aderência Intraday)
+Monitoramento em tempo real do cumprimento da meta de SLA por janela de atendimento de 30 minutos.
+
+![Dashboard Nível de Serviço Aderência](assets/img/dashboard-volumetria-ns-aderencia.png)
+
+- **Pontos Altos:**
+  - **Curva Ns20 vs Desvio de Forecast:** Linha de tendência indicando o percentual de atingimento do SLA e variação em relação ao planejado por intervalo.
+  - **Status de Entrega por Intervalo:** Visualização em colunas categorizando os intervalos que atingiram o SLA (laranja) e os que ficaram abaixo da meta (cinza).
+
+---
+
+### 5. Dashboard Nível de Serviço (Detalhamento)
+Visão analítica horizontal orientada à auditoria cirúrgica de horários de pico e falhas de cobertura.
+
+![Dashboard Nível de Serviço Detalhamento](assets/img/dashboard-volumetria-ns-detalhamento.png)
+
+- **Pontos Altos:**
+  - **Triangulação de Indicadores:** Barras horizontais alinhadas comparando simultaneamente `%NS20 x Meta`, `NS Forecast` e o `Desvio de NS`.
+  - **Auditoria Rápida:** Diagnóstico imediato das janelas horárias que puxaram o indicador consolidado de SLA para baixo.
+
+---
+
+### 6. Dashboard TMA (Visão Intradia)
+Análise detalhada do Tempo Médio de Atendimento e Espera comparada às metas estabelecidas.
+
+![Dashboard TMA Intradia](assets/img/dashboard-tma-intradia.png)
+
+- **Pontos Altos:**
+  - **Mapeamento de Desvios Extremos:** Destaque gráfico dos intervalos com *Desvios Acima* e *Desvios Abaixo* em relação ao parâmetro do dia.
+  - **Análise Comparativa por Turno:** Avaliação da evolução do TMA em relação ao turno anterior e ao valor orçado em forecast.
+
+---
+
+### 7. Dashboard TMA (Aderência à Demanda)
+Estudo de correlação entre o tempo de atendimento e o volume de tráfego da operação.
+
+![Dashboard TMA Aderência](assets/img/dashboard-tma-aderencia.png)
+
+- **Pontos Altos:**
+  - **Impacto da Demanda no TMA:** Demonstração visual de como o TMA se comporta nos picos de chamada (*Alta Demanda*) versus momentos de calmaria (*Baixa Demanda*).
+  - **Curva Sincronizada de TME:** Acompanhamento do Tempo Médio de Espera na parte inferior, permitindo avaliar se a alta no TMA represou a fila de atendimento.
+---
+
+## 🔍 Visões Analíticas (Tabelas Dinâmicas Automatizadas via VBA)
+
+As camadas analíticas do relatório utilizam Tabelas Dinâmicas controladas via VBA para permitir detalhamentos granulares sem perda de performance:
+
+### 1. Visão Analítica Geral
+Análise agregada dos principais indicadores do dia contra a meta informada.
+![Analítico Geral](assets/img/analitico.png)
+
+### 2. Visão Analítica por Operador
+Acompanhamento tático individualizado de produtividade e aderência da equipe.
+![Analítico por Operador](assets/img/analitico-operador.png)
+
+---
+
+## 🎯 Métricas & Indicadores Monitorados
+
+| Indicador | Sigla / Métrica | Descrição |
 | :--- | :--- | :--- |
-| **PCA** | $\frac{\text{Atendidas}}{\text{Oferecidas}}$ | Mede a eficiência de conversão da fila. |
-| **Nível de Serviço (NS20)** | $\frac{\text{Atendidas até 20s}}{\text{Oferecidas}}$ | Métrica primária de experiência do cliente. |
-| **% Atendidas em 20s** | $\frac{\text{Atendidas até 20s}}{\text{Atendidas Totais}}$ | Participação do atendimento rápido dentro do universo de chamadas concluídas. |
-| **Sobrecarga de TMA** | $\left( \frac{\text{TMA Top 5}}{\text{TMA Consolidado}} \right) - 1$ | Quantifica o estresse operacional nos intervalos de pico. |
-| **Alívio de TMA** | $1 - \left( \frac{\text{TMA Vales}}{\text{TMA Consolidado}} \right)$ | Quantifica o ganho de eficiência e velocidade nas janelas de baixa demanda. |
-
-> **Nota de Tratamento de Dados (SQL):** As queries de extração utilizam CTEs para deduplicação estrita de `agentid` por intervalo de 30 minutos, impedindo a inflação artificial de tempo por multiplicadores de filas/skills.
+| **Forecast** | Previsão | Volume previsto de contatos/chamadas projetado para o intervalo. |
+| **Volumetria** | Realizado | Volume efetivamente recebido, atendido e retido no período. |
+| **Tempos de Atendimento** | TMA / TME | Tempo Médio de Atendimento e Tempo Médio de Espera. |
+| **Nível de Serviço** | NS (%) | Percentual de chamadas atendidas dentro do SLA pré-estabelecido. |
 
 ---
 
-## 🖼️ Mapeamento de Telas
+## 📂 Arquitetura do Repositório
 
-### 1. Painel OnePage
-- Visão executiva em grid estruturado com cards de KPI e velocímetro de Nível de Serviço.
-- Gráfico de colunas indicando a proporção de **Intervalos Entregues vs. Não Entregues**.
+Organização estrutural projetada para controle de versão granular e separação de responsabilidades:
 
-### 2. Volumetria & Comparativo
-- Segmentação de volumetria por turnos e botão seletor de indicadores.
-- Gráfico de rosca dinâmico para cálculo de **Concentração de Volume em Alta Demanda**.
-
-### 3. Módulo de TMA & Aderência
-- Gráfico de barras combinadas indicando desvios acima/abaixo do planejamento.
-- Painel lateral com anéis de **Sobrecarga** e **Alívio de TMA** contendo redação direta para leitura executiva.
-
----
-
-## 💻 Estrutura de Código
-
-### SQL (T-SQL Engine)
-Os scripts localizados em `src/sql/` aplicam o padrão de agrupamento prévio em memória:
-
-```sql
-with CteAgenteIntervalo as (
-    select
-        c.Data
-        , convert(time(0), dbo.fn_IntervaloPor(c.Intervalo, 30)) as Intervalo
-        , c.agentid
-        , max(c.TempoDisponivel) as TempoDisponivel
-    from dbo.TB_AtendimentoRaw as c with(nolock)
-    where 1=1
-        and c.Data = @DataInicio
-    group by 
-        c.Data
-        , convert(time(0), dbo.fn_IntervaloPor(c.Intervalo, 30))
-        , c.agentid
-)
-select 
-    Intervalo
-    , dbo.fn_divisao(sum(TempoDisponivel), count(distinct agentid)) as TempoDisponivelMedio
-from CteAgenteIntervalo
-group by Intervalo;
+```text
+farol-hora-hora/
+├── assests/
+│   └── img/                    # Capturas de tela e assets visuais da documentação
+│       ├── analitico-operador.png
+│       ├── analitico-skills.png
+│       ├── analitico.png
+│       ├── capa.png
+│       └── dashboard-onepage.png
+├── dist/
+│   └── Farol.xlsb              # Arquivo executável da operação (Formato Binário)
+├── docs/                       # Documentação técnica e operacional estendida
+└── src/
+    ├── sql/                    # Scripts SQL para staging e carga de dados
+    └── vba/                    # Código-fonte VBA extraído e versionado
+        ├── class-modules/      # Módulos de Classe (.cls)
+        ├── modules/            # Módulos Padrão (.bas)
+        └── objects/            # Objetos de Planilha e Workbook
