@@ -106,6 +106,43 @@ Acompanhamento tático individualizado de produtividade e aderência da equipe.
 
 ---
 
+## 💻 Arquitetura & Módulos VBA
+
+O código-fonte em VBA foi desacoplado numa estrutura de camadas para garantir modularidade, desacoplamento de interface e facilidade de manutenção:
+
+### 🎨 UserForms (`src/vba/forms/`)
+Interfaces gráficas customizadas para suporte operacional e consulta de dicionário de dados:
+
+| Componente | Tipo | Descrição / Responsabilidade |
+| :--- | :--- | :--- |
+| **`FrmGlossarioCompletoLight`** | Form | Modal principal para exibição e busca interativa do glossário completo de indicadores. |
+| **`FrmGlossarioDetalheLight`** | Form | Tela detalhada (*popup*) que exibe a fórmula, conceito e regras de negócio de uma métrica selecionada. |
+
+### ⚙️ Módulos Padrão (`src/vba/modules/`)
+Core de processamento, atualização automatizada e manipulação de dados:
+
+| Módulo | Tipo | Descrição / Responsabilidade |
+| :--- | :--- | :--- |
+| **`Program.bas`** | Módulo | **Entry Point** da aplicação. Orquestra o fluxo principal de execução e conexão SQL. |
+| **`Dashboard_.bas`** | Módulo | Manipulação programática dos shapes, graficos, otimização de PivotCaches e renderização. |
+| **`ConfigPlanilha.bas`** | Módulo | Rotinas de infraestrutura: toggles de performance (`ScreenUpdating`, `DisplayFullScreen`). |
+| **`RegistroLog.bas`** | Módulo | Rastreabilidade: grava logs de execução, horários de atualização e captura de exceções. |
+| **`FrmGlossarioConfiguracoes.bas`** | Módulo | Camada de serviço para os Forms de glossário, filtrando parâmetros em memória. |
+
+### 📦 Objetos & Eventos (`src/vba/objects/`)
+Manipulação de eventos de interface e escopo das planilhas (`Worksheets` / `Workbook`):
+
+| Objeto | Classe | Descrição / Responsabilidade |
+| :--- | :--- | :--- |
+| **`EstaPastaDeTrabalho`** | Workbook | Trata eventos globais do arquivo (`Workbook_Open`, `Workbook_BeforeClose`) e inicialização. |
+| **`Capa`** | Sheet | Gerencia interações, menus de atalho e ações de navegação da aba inicial. |
+| **`ConfigMenu`** | Sheet | Controla os gatilhos visuais e eventos de clique da aba de configurações e filtros. |
+| **`Dashboard`** | Sheet | Captura eventos da planilha de Dashboards para alternância dinâmica de telas. |
+| **`Farol`** | Sheet | Lógica de interatividade e eventos da aba principal do Farol de indicadores intraday. |
+| **`Operador`** | Sheet | Eventos e atualizações específicas da aba de visão analítica por operador. |
+
+---
+
 ## 🎯 Métricas & Indicadores Monitorados
 
 | Indicador | Sigla / Métrica | Descrição |
@@ -136,6 +173,6 @@ farol-hora-hora/
 └── src/
     ├── sql/                    # Scripts SQL para staging e carga de dados
     └── vba/                    # Código-fonte VBA extraído e versionado
-        ├── class-modules/      # Módulos de Classe (.cls)
-        ├── modules/            # Módulos Padrão (.bas)
-        └── objects/            # Objetos de Planilha e Workbook
+        ├── forms/      # UserForms (.frm) para interfaces dinâmicas de usuário
+        ├── modules/    # Módulos Padrão (.bas) com a lógica de negócio e orquestração
+        └── objects/    # Módulos de Objeto (.cls) associados a Worksheets e Workbook
