@@ -155,161 +155,136 @@ End Sub
 ' ==============================================================================
 ' CONTROLADOR DE NAVEGAÇÃO MULTI-MENU (UNIFICADO)
 ' ==============================================================================
-Private Sub FormatarMenus(Optional menu As Variant)
+Private Sub FormatarMenus(Optional ByVal nomeMenu As String = "")
     
     On Error GoTo TratarErro
     Application.ScreenUpdating = False
     
     ' --------------------------------------------------------------------------
-    ' 1. DEFINIÇÃO DOS GRUPOS DE BOTÕES (Mapeie o nome das suas Shapes aqui)
+    ' 1. RESOLUÇÃO DO BOTÃO DISPARADOR
     ' --------------------------------------------------------------------------
-    Dim MenuPrincipal As Variant
-    Dim SubMenuEsquerdo As Variant
-    Dim SubMenuDireito As Variant
-    Dim SubMenuTma As Variant
-    
-    ' MENU I: Navegação Superior Principal
-    MenuPrincipal = Array("BtMenuOnePage", "BtMenuVolumetria", "BtMenuTma", "BtMenuTempos")
-    
-    ' MENU II: Submenu Lateral Esquerdo
-    SubMenuEsquerdo = Array("BtVolComparativo", "BtVolUnico", "BtVolNs")    ', "SubMenuTma", "BtTmaIntradia", "BtTmaAderencia")
-    
-    ' MENU III: Submenu Lateral Direito
-    SubMenuDireito = Array("BtVolAderencia", "BtVolDetalhamento")
-    
-    SubMenuTma = Array("BtTmaIntradia", "BtTmaAderencia")
-    
-    ' --------------------------------------------------------------------------
-    ' 2. PALETA DE CORES GLOBAL
-    ' --------------------------------------------------------------------------
-    Dim CorLaranja As Long, CorBranca As Long, CorCinza As Long
-    
-    CorLaranja = RGB(255, 107, 0)   ' Laranja Destaque
-    CorBranca = RGB(255, 255, 255)  ' Branco Puro
-    CorCinza = RGB(128, 128, 128)   ' Cinza Neutro
-    
-    ' --------------------------------------------------------------------------
-    ' 3. IDENTIFICAÇÃO DO BOTÃO CLICADO E DO GRUPO PERTENCENTE
-    ' --------------------------------------------------------------------------
-    Dim NomeBotaoClicado As String
-    Dim GrupoAtual As Variant
-    Dim EstiloPrincipal As Boolean
-    
-    If menu = "" Then
-        NomeBotaoClicado = Application.Caller
+    Dim botaoAlvo As String
+    If Len(Trim$(nomeMenu)) = 0 Then
+        botaoAlvo = CStr(Application.Caller)
     Else
-        NomeBotaoClicado = menu
+        botaoAlvo = nomeMenu
     End If
     
-    ' Verifica a qual grupo o botão clicado pertence
-    If IsInArray(NomeBotaoClicado, MenuPrincipal) Then
-        GrupoAtual = MenuPrincipal
-        EstiloPrincipal = True  ' Aplica regras do Menu I (Fundo Laranja)
-        
-    ElseIf IsInArray(NomeBotaoClicado, SubMenuEsquerdo) Then
-        GrupoAtual = SubMenuEsquerdo
-        EstiloPrincipal = False ' Aplica regras dos Submenus (Fundo Branco + Transparente)
-        
-    ElseIf IsInArray(NomeBotaoClicado, SubMenuDireito) Then
-        GrupoAtual = SubMenuDireito
-        EstiloPrincipal = False ' Aplica regras dos Submenus (Fundo Branco + Transparente)
-        
-    ElseIf IsInArray(NomeBotaoClicado, SubMenuTma) Then
-        GrupoAtual = SubMenuTma
-        EstiloPrincipal = False ' Aplica regras dos Submenus (Fundo Branco + Transparente)
-            
-            
+    ' --------------------------------------------------------------------------
+    ' 2. DEFINIÇÃO DOS GRUPOS E SELEÇÃO DO CONJUNTO AFETADO
+    ' --------------------------------------------------------------------------
+    Dim menuPrincipal As Variant
+    Dim subMenuEsquerdo As Variant
+    Dim subMenuDireito As Variant
+    Dim subMenuTma As Variant
+    
+    menuPrincipal = Array("BtMenuOnePage", "BtMenuVolumetria", "BtMenuTma", "BtMenuTempos")
+    subMenuEsquerdo = Array("BtVolComparativo", "BtVolUnico", "BtVolNs")
+    subMenuDireito = Array("BtVolAderencia", "BtVolDetalhamento")
+    subMenuTma = Array("BtTmaIntradia", "BtTmaAderencia")
+    
+    Dim grupoAtual As Variant
+    Dim ehEstiloPrincipal As Boolean
+    
+    If fn_ExisteNoArray(botaoAlvo, menuPrincipal) Then
+        grupoAtual = menuPrincipal
+        ehEstiloPrincipal = True
+    ElseIf fn_ExisteNoArray(botaoAlvo, subMenuEsquerdo) Then
+        grupoAtual = subMenuEsquerdo
+        ehEstiloPrincipal = False
+    ElseIf fn_ExisteNoArray(botaoAlvo, subMenuDireito) Then
+        grupoAtual = subMenuDireito
+        ehEstiloPrincipal = False
+    ElseIf fn_ExisteNoArray(botaoAlvo, subMenuTma) Then
+        grupoAtual = subMenuTma
+        ehEstiloPrincipal = False
     Else
-        ' Caso a forma clicada não esteja mapeada nos vetores
         GoTo SairDaMacro
     End If
     
     ' --------------------------------------------------------------------------
-    ' 4. LOOP DE ESTILIZAÇÃO DO GRUPO AFETADO
+    ' 3. PALETA DE CORES GLOBAL (CONSTANTES COM RGB CALCULADO)
     ' --------------------------------------------------------------------------
-    Dim ItemBotao As Variant
-    Dim Shp As Shape
+    Dim corLaranja As Long, corBranca As Long, corCinza As Long
+    corLaranja = RGB(255, 107, 0)
+    corBranca = RGB(255, 255, 255)
+    corCinza = RGB(128, 128, 128)
     
-    For Each ItemBotao In GrupoAtual
-        Set Shp = Dashboard.Shapes(CStr(ItemBotao))
+    ' --------------------------------------------------------------------------
+    ' 4. LOOP DE APLICAÇÃO DE DESIGN ATIVO/INATIVO
+    ' --------------------------------------------------------------------------
+    Dim itemBotao As Variant
+    Dim shpBotao As Shape
+    Dim ehBotaoClicado As Boolean
+    
+    For Each itemBotao In grupoAtual
+        Set shpBotao = Dashboard.Shapes(CStr(itemBotao))
+        ehBotaoClicado = (shpBotao.Name = botaoAlvo)
         
-        With Shp
-            .Line.Visible = msoFalse ' Remove contornos para manter o design clean
+        With shpBotao
+            .Line.Visible = msoFalse
+            .TextFrame2.TextRange.Font.Bold = msoTrue
             
-            If .Name = NomeBotaoClicado Then
-                ' ==============================================================
-                ' ESTADO ATIVO (ON)
-                ' ==============================================================
+            If ehBotaoClicado Then
+                ' --- ESTADO ATIVO (ON) ---
                 .Fill.Visible = msoTrue
                 .Fill.Solid
                 .Fill.Transparency = 0#
                 .Shadow.Visible = msoTrue
-                .Shadow.Type = msoShadow21 ' Sombra de elevação suave
+                .Shadow.Type = msoShadow21
                 
-                If EstiloPrincipal Then
-                    ' MENU I ATIVO: Fundo Laranja + Texto Branco
-                    .Fill.ForeColor.RGB = CorLaranja
-                    .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = CorBranca
+                If ehEstiloPrincipal Then
+                    .Fill.ForeColor.RGB = corLaranja
+                    .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = corBranca
                 Else
-                    ' MENU II/III ATIVO: Fundo Branco + Texto Laranja
-                    .Fill.ForeColor.RGB = CorBranca
-                    .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = CorLaranja
+                    .Fill.ForeColor.RGB = corBranca
+                    .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = corLaranja
                 End If
-                
-                .TextFrame2.TextRange.Font.Bold = msoTrue
-                
             Else
-                ' ==============================================================
-                ' ESTADO INATIVO (OFF)
-                ' ==============================================================
+                ' --- ESTADO INATIVO (OFF) ---
                 .Shadow.Visible = msoFalse
                 
-                If EstiloPrincipal Then
-                    ' MENU I INATIVO: Fundo Branco + Texto Cinza
+                If ehEstiloPrincipal Then
                     .Fill.Visible = msoTrue
                     .Fill.Solid
-                    .Fill.ForeColor.RGB = CorBranca
-                    .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = CorCinza
+                    .Fill.ForeColor.RGB = corBranca
+                    .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = corCinza
                 Else
-                    ' MENU II/III INATIVO: Fundo Transparente + Texto Cinza
                     .Fill.Visible = msoFalse
-                    .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = CorCinza
+                    .TextFrame2.TextRange.Font.Fill.ForeColor.RGB = corCinza
                 End If
-                
-                .TextFrame2.TextRange.Font.Bold = msoTrue
-                
             End If
         End With
-    Next ItemBotao
+    Next itemBotao
 
 SairDaMacro:
-    Set Shp = Nothing
-    'ActiveSheet.Shapes(NomeBotaoClicado).Select
-    ActiveSheet.Range("A1").Select
+    On Error Resume Next
+    Set shpBotao = Nothing
+    Dashboard.Range("A1").Select
     Application.ScreenUpdating = True
     Exit Sub
 
 TratarErro:
+    Application.ScreenUpdating = True
     MsgBox "Erro ao processar a navegação de menus: " & Err.Description, vbCritical, "Erro no Dashboard"
     Resume SairDaMacro
 End Sub
-
 ' ==============================================================================
-' FUNÇÃO AUXILIAR: VERIFICA SE UMA SHAPE PERTENCE AO VETOR DO MENU
+' FUNÇÃO AUXILIAR: VERIFICA A PRESENÇA DE UM TEXTO EM UM VETOR (CASE-INSENSITIVE)
 ' ==============================================================================
-Private Function IsInArray(valToBeFound As String, arr As Variant) As Boolean
+Private Function fn_ExisteNoArray(ByVal itemProcurado As String, ByVal vetorAlvo As Variant) As Boolean
     
-    Dim element As Variant
+    If Not IsArray(vetorAlvo) Then Exit Function
     
-    For Each element In arr
-        If LCase(CStr(element)) = LCase(valToBeFound) Then
-            IsInArray = True
+    Dim elemento As Variant
+    
+    For Each elemento In vetorAlvo
+        If StrComp(CStr(elemento), itemProcurado, vbTextCompare) = 0 Then
+            fn_ExisteNoArray = True
             Exit Function
         End If
-    Next element
+    Next elemento
     
-    IsInArray = False
+    fn_ExisteNoArray = False
     
 End Function
-
-
