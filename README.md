@@ -1,4 +1,4 @@
-# 🚦 Farol Hora a Hora | Dashboard & Analytics Intraday
+# 🚦 Farol Hora a Hora | Dashboard & Analytics
 
 [![Excel](https://img.shields.io/badge/Excel-.XLSB-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)](#)
 [![VBA](https://img.shields.io/badge/VBA-Automated-blue?style=for-the-badge)](#)
