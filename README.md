@@ -118,6 +118,22 @@ Interfaces gráficas customizadas para suporte operacional e consulta de dicion�
 | **`FrmGlossarioCompletoLight`** | Form | Modal principal para exibição e busca interativa do glossário completo de indicadores. |
 | **`FrmGlossarioDetalheLight`** | Form | Tela detalhada (*popup*) que exibe a fórmula, conceito e regras de negócio de uma métrica selecionada. |
 
+---
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="assets/img/glossario-tela-principal.png" alt="Tela Principal com Busca" width="700">
+  <br>
+  <em>Tela Principal: Com busca dinâmica em: "Procure um indicador aqui...".</em>
+</p>
+
+<p align="center">
+  <img src="assets/img/glossario-tela-secundaria.png" alt="Tela de Detalhes" width="450">
+  <br>
+  <em>Tela de Detalhes: Acionada por clique duplo, exibindo o conceito de negócio.</em>
+</p>
+
 ### ⚙️ Módulos Padrão (`src/vba/modules/`)
 Core de processamento, atualização automatizada e manipulação de dados:
 
