@@ -4,7 +4,7 @@ Dim Inicio As Date
 
 Sub Atualizar(Optional ByVal Data As String = "default")
     
-    ' Desativa eventos e atualizações para melhor processamento das informações
+    ' Desativa eventos e atualizaï¿½ï¿½es para melhor processamento das informaï¿½ï¿½es
     With Application
         .DisplayFullScreen = False 'para aparecer o status bar
         .Wait (Now + TimeValue("0:00:01")) 'para dar tempo de refletir o fullscreem e pegar o status bar
@@ -22,28 +22,18 @@ Sub Atualizar(Optional ByVal Data As String = "default")
     Call Program.Sincronizar(Data)
     
     
-    ' Contabiliza o tempo de execução da etapa anterior e mostra a próxima etapa
-    Application.StatusBar = "fn_SumarioVozSkills atualizada em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando paineis..."
-    Debug.Print ("fn_SumarioVozSkills atualizada em: " & Format(Now - Inicio, "hh:mm:ss"))
+    ' Contabiliza o tempo de execuï¿½ï¿½o da etapa anterior e mostra a prï¿½xima etapa
+    Application.StatusBar = "fn_FarolVozSkills atualizada em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando paineis..."
+    Debug.Print ("fn_FarolVozSkills atualizada em: " & Format(Now - Inicio, "hh:mm:ss"))
     Inicio = Now
     
-    'Olhar se o dash vai atualizar quando mudar o mês
+    'Olhar se o dash vai atualizar quando mudar o mï¿½s
     ActiveWorkbook.RefreshAll
     
     Call Program.OcultarLinhasFarol("Farol")
     
-'    ' Contabiliza o tempo de execução da etapa anterior e mostra a próxima etapa
-'    Application.StatusBar = "Linhas do farol ocultas em em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando paineis..."
-'    Debug.Print ("Linhas do farol ocultas em em: " & Format(Now - Inicio, "hh:mm:ss"))
-'    Inicio = Now
-
-    'Call Program.VisibleFalse
-    'Call ConfigPlanilhas.BarraTarefaOn
-    'Call Program.VisibleEnvio
-        
-    'Capa.Select
     
-    ' Ativa eventos e atualizações
+    ' Ativa eventos e atualizaï¿½ï¿½es
     With Application
         .Calculation = xlCalculationAutomatic
         .DisplayFullScreen = True
@@ -66,8 +56,8 @@ Sub Sincronizar(Optional ByVal Data As String = "default")
     Dim DataFim As Date
     Dim DataAuxiliar As Date
     
-    ' Repita esse código para execução de cada etapa de atualização do seu relatório
-    Application.StatusBar = "Realizando Conexão com o Banco de Dados"
+    ' Repita esse cï¿½digo para execuï¿½ï¿½o de cada etapa de atualizaï¿½ï¿½o do seu relatï¿½rio
+    Application.StatusBar = "Realizando Conexï¿½o com o Banco de Dados"
     'Debug.Print (Format(Now - Inicio, "hh:mm:ss"))
     Inicio = Now
     
@@ -87,12 +77,12 @@ Sub Sincronizar(Optional ByVal Data As String = "default")
     Mes = Month(Data)
     Ano = Year(Data)
     
-    ' Contabiliza o tempo de execução da etapa anterior e mostra a próxima etapa
-    Application.StatusBar = "Conexão realizada em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando vw_GlossarioUsuariosExcecao..."
-    Debug.Print ("Conexão realizada em: " & Format(Now - Inicio, "hh:mm:ss"))
+    ' Contabiliza o tempo de execuï¿½ï¿½o da etapa anterior e mostra a prï¿½xima etapa
+    Application.StatusBar = "Conexï¿½o realizada em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando vw_GlossarioUsuariosExcecao..."
+    Debug.Print ("Conexï¿½o realizada em: " & Format(Now - Inicio, "hh:mm:ss"))
     Inicio = Now
     
-    '-------------------------- Base Glossário -------------------------
+    '-------------------------- Base Glossï¿½rio -------------------------
     
     sql = "set dateformat dmy "
     sql = sql + "select * "
@@ -107,7 +97,7 @@ Sub Sincronizar(Optional ByVal Data As String = "default")
         End With
     End If
     
-    ' Contabiliza o tempo de execução da etapa anterior e mostra a próxima etapa
+    ' Contabiliza o tempo de execuï¿½ï¿½o da etapa anterior e mostra a prï¿½xima etapa
     Application.StatusBar = "vw_GlossarioUsuariosExcecao atualizada em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando fn_SumarioVoz..."
     Debug.Print ("vw_GlossarioUsuariosExcecao em: " & Format(Now - Inicio, "hh:mm:ss"))
     Inicio = Now
@@ -125,13 +115,13 @@ Sub Sincronizar(Optional ByVal Data As String = "default")
         
         With BaseCMS
             '.Range("A2:Aw" & .Rows.Count).ClearContents
-            If .Range("Tb_BaseCMS")(1) <> "" Then .Range("Tb_BaseCMS").Delete
+            If .Range("Tb_Base")(1) <> "" Then .Range("Tb_Base").Delete
             .Range("A2").CopyFromRecordset rec
         End With
     
     End If
     
-    ' Contabiliza o tempo de execução da etapa anterior e mostra a próxima etapa
+    ' Contabiliza o tempo de execuï¿½ï¿½o da etapa anterior e mostra a prï¿½xima etapa
     Application.StatusBar = "fn_FarolVoz atualizada em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando fn_FarolTemposOperador..."
     Debug.Print ("fn_FarolVoz atualizada em: " & Format(Now - Inicio, "hh:mm:ss"))
     Inicio = Now
@@ -149,15 +139,15 @@ Sub Sincronizar(Optional ByVal Data As String = "default")
 
         With BaseOperadorCMS
             ''.Range("A2:Aw" & .Rows.Count).ClearContents
-            If .Range("Tb_BaseOperadorCMS")(1) <> "" Then .Range("Tb_BaseOperadorCMS").Delete
+            If .Range("Tb_BaseOperador")(1) <> "" Then .Range("Tb_BaseOperador").Delete
             .Range("A2").CopyFromRecordset rec
         End With
 
     End If
 
-    ' Contabiliza o tempo de execução da etapa anterior e mostra a próxima etapa
-    Application.StatusBar = "fn_SumarioVozTemposOperador atualizada em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando fn_SumarioVozSkills..."
-    Debug.Print ("fn_SumarioVozTemposOperador atualizada em: " & Format(Now - Inicio, "hh:mm:ss"))
+    ' Contabiliza o tempo de execuï¿½ï¿½o da etapa anterior e mostra a prï¿½xima etapa
+    Application.StatusBar = "fn_FarolVozTemposOperador atualizada em: " & Format(Now - Inicio, "hh:mm:ss") & " | Atualizando fn_FarolVozSkills..."
+    Debug.Print ("fn_FarolVozTemposOperador atualizada em: " & Format(Now - Inicio, "hh:mm:ss"))
     Inicio = Now
     
     
@@ -174,7 +164,7 @@ Sub Sincronizar(Optional ByVal Data As String = "default")
 
         With BaseCMSSKILLS
             ''.Range("A2:Aw" & .Rows.Count).ClearContents
-            If .Range("Tb_BaseCMSSKILLS")(1) <> "" Then .Range("Tb_BaseCMSSKILLS").Delete
+            If .Range("Tb_BaseSKILLS")(1) <> "" Then .Range("Tb_BaseSKILLS").Delete
             .Range("A2").CopyFromRecordset rec
         End With
 
@@ -186,9 +176,9 @@ End Sub
  
 Function fn_PermissaoBases() As Boolean
     
-    'Essa função serve para dar permissão as bases do relatório
+    'Essa funï¿½ï¿½o serve para dar permissï¿½o as bases do relatï¿½rio
     'Apenas usuarios chaves devem ter esse acesso
-    'Normalmente é algum focal ou planejamento
+    'Normalmente ï¿½ algum focal ou planejamento
     
     Select Case UCase(Environ$("username"))
         
@@ -216,8 +206,8 @@ Private Sub VisibleTrue()
     Application.ScreenUpdating = False
     
     
-    BaseCMS.Visible = xlSheetVisible
-    BaseCMSSKILLS.Visible = xlSheetVisible
+    Base.Visible = xlSheetVisible
+    BaseSKILLS.Visible = xlSheetVisible
     BaseOperadorCMS.Visible = xlSheetVisible
     
     ConfigMenu.Visible = xlSheetVisible
@@ -237,8 +227,8 @@ Private Sub VisibleFalse()
     
     Application.ScreenUpdating = False
     
-    BaseCMS.Visible = xlSheetVeryHidden
-    BaseCMSSKILLS.Visible = xlSheetVeryHidden
+    Base.Visible = xlSheetVeryHidden
+    BaseSKILLS.Visible = xlSheetVeryHidden
     BaseOperadorCMS.Visible = xlSheetVeryHidden
     
     ConfigMenu.Visible = xlSheetVeryHidden

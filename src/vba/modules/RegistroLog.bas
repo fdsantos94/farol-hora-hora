@@ -25,7 +25,7 @@ Sub Log(ByVal Evento As Integer)
     
     '-----------------------------------------------------------------------------------------
     
-    'pegar o id do relatorio na tabela db_portal_mis.dbo.tb_relatorios
+    'pegar o id do relatorio na tabela Banco.dbo.tb_relatorios
     
     IdRelatorio = CodMis
     
@@ -48,7 +48,7 @@ End Sub
 
 Private Sub InsertLog(ByVal IdRelatorio As Integer, DataLog As Date, UserName As String, Computer As String, UserDomain As String, ByVal Status As String)
     
-    'Conexão Banco de Dados
+    'Conexï¿½o Banco de Dados
     Dim conn As New Connection
     Dim sql As String
     Dim rec As Object
@@ -84,7 +84,7 @@ Sub RecriarBaseLogsSheets()
 
     Application.DisplayAlerts = False
     
-    ' Se já existir, deleta
+    ' Se jï¿½ existir, deleta
     On Error Resume Next
     ThisWorkbook.Sheets(wsNomeLogs).Visible = xlSheetVisible
     ThisWorkbook.Sheets(wsNomeLogs).Delete
@@ -94,12 +94,12 @@ Sub RecriarBaseLogsSheets()
     Set wsLogs = ThisWorkbook.Sheets.Add
     wsLogs.Name = wsNomeLogs
     
-    ' Cabeçalhos
+    ' Cabeï¿½alhos
     With wsLogs
         .Range("A1").value = "Data"
-        .Range("B1").value = "Horário"
-        .Range("C1").value = "Máquina"
-        .Range("D1").value = "Usuário"
+        .Range("B1").value = "Horï¿½rio"
+        .Range("C1").value = "Mï¿½quina"
+        .Range("D1").value = "Usuï¿½rio"
         .Range("E1").value = "SheetAcessada"
         .Range("F1").value = "IdRelatorio"
         '.Visible = xlSheetHidden
@@ -132,11 +132,11 @@ Sub ColetarRegistrosLogSheets()
     
     linha = wsLogs.Range("A1").CurrentRegion.Rows.Count + 1
     
-    ' Verifica se já existe a planilha registrada na coluna E
+    ' Verifica se jï¿½ existe a planilha registrada na coluna E
     Set rng = wsLogs.Range("E:E").Find(What:=NomePlanilha, LookAt:=xlWhole, MatchCase:=False)
     
     If Not rng Is Nothing Then
-        'já existe ? não registra novamente
+        'jï¿½ existe ? nï¿½o registra novamente
         Exit Sub
     End If
     
@@ -164,7 +164,7 @@ Sub RegistarLogsSheets()
     
     On Error GoTo sair
 
-    ' Conexão Padrão
+    ' Conexï¿½o Padrï¿½o
     With conn
         .Tipo = cnnSqlServer
         .Server = "SE0000BD1994\INSTANCE1994"
@@ -184,7 +184,7 @@ Sub RegistarLogsSheets()
     ' Loop para popular o log em banco
     For i = 2 To linha
     
-        sql = "set dateformat ymd insert into MIS.Interno.LogAcessoSheets values('" _
+        sql = "set dateformat ymd insert into Banco.dbo.LogAcessoSheets values('" _
                 & Format(wsLogs.Range("A" & i).value, "yyyy-mm-dd") & "','" _
                 & Format(wsLogs.Range("B" & i).value, "hh:mm:ss") & "','" _
                 & wsLogs.Range("C" & i).value & "','" _
