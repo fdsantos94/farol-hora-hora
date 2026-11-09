@@ -5,7 +5,7 @@
 [![SQL](https://img.shields.io/badge/SQL-Server-CC292B?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)](#)
 [![Refresh](https://img.shields.io/badge/Atualização-A_cada_30_min-orange?style=for-the-badge)](#)
 
-O **Farol Hora a Hora** é um ecossistema de relatórios tático-operacionais desenvolvido em Excel com automação robusta em VBA e consultas SQL otimizadas. Atualizado em ciclos rigorosos de **30 minutos**, o sistema consolida indicadores intraday essenciais para a tomada de decisão rápida e controle de operação.
+O **Farol Hora a Hora** é um ecossistema de relatórios tático-operacionais desenvolvido em Excel com automação robusta em VBA e consultas SQL otimizadas. Atualizado em ciclos de **30 minutos**, o sistema consolida indicadores intra hora essenciais para a tomada de decisão rápida e controle de operação.
 
 ---
 
@@ -23,7 +23,7 @@ Centralizador executivo com visão macro integrada da operação, ideal para tom
 
 - **Pontos Altos:**
   - **KPIs de Alto Impacto:** Painel com cartões consolidados de volumetria (*Planejadas, Oferecidas, Atendidas, Abandonadas*), tempos (*TMA e TME*), dimensionamento (*HC Planejado vs Realizado*, *Taxa de Ocupação*) e controle de pausas.
-  - **Gauge Dinâmico de SLA:** Medidor visual de Nível de Serviço (%NS) integrado ao acompanhamento de aderência dos intervalos do dia (*Entregues vs Não Entregues*).
+  - **Medidor Dinâmico de SLA:** Medidor visual de Nível de Serviço (%NS) integrado ao acompanhamento de aderência dos intervalos do dia (*Entregues vs Não Entregues*).
 
 ---
 
@@ -33,7 +33,7 @@ Ferramenta desenvolvida para análise cruzada de dois indicadores volumétricos 
 ![Dashboard Volumetria Comparativo](assets/img/dashboard-volumetria-comparativo.png)
 
 - **Pontos Altos:**
-  - **Análise Bi-Paramétrica:** Permite selecionar e comparar dois indicadores no mesmo gráfico intraday (ex: *Atendidas* vs *Atendidas em até 20s* ou *Oferecidas* vs *Abandonadas*).
+  - **Análise Bi-Paramétrica:** Permite selecionar e comparar dois indicadores no mesmo gráfico intra hora (ex: *Atendidas* vs *Atendidas em até 20s* ou *Oferecidas* vs *Abandonadas*).
   - **Visão por Turno:** Consolidação dos volumes dividida entre os turnos *Manhã*, *Tarde* e *Noite* para rápida identificação de sazonalidades operacionais.
 
 ---
@@ -49,13 +49,13 @@ Focado na análise de curva de tráfego e segmentação por intensidade de deman
 
 ---
 
-### 4. Dashboard Nível de Serviço (Aderência Intraday)
+### 4. Dashboard Nível de Serviço (Aderência Intra Hora)
 Monitoramento em tempo real do cumprimento da meta de SLA por janela de atendimento de 30 minutos.
 
 ![Dashboard Nível de Serviço Aderência](assets/img/dashboard-volumetria-ns-aderencia.png)
 
 - **Pontos Altos:**
-  - **Curva Ns20 vs Desvio de Forecast:** Linha de tendência indicando o percentual de atingimento do SLA e variação em relação ao planejado por intervalo.
+  - **Curva Ns20 vs Desvio de Forecast:** Linha de desvio indicando o percentual de atingimento do SLA e variação em relação ao planejado por intervalo.
   - **Status de Entrega por Intervalo:** Visualização em colunas categorizando os intervalos que atingiram o SLA (laranja) e os que ficaram abaixo da meta (cinza).
 
 ---
@@ -71,13 +71,13 @@ Visão analítica horizontal orientada à auditoria cirúrgica de horários de p
 
 ---
 
-### 6. Dashboard TMA (Visão Intradia)
+### 6. Dashboard TMA (Visão Intra Hora)
 Análise detalhada do Tempo Médio de Atendimento e Espera comparada às metas estabelecidas.
 
-![Dashboard TMA Intradia](assets/img/dashboard-tma-intradia.png)
+![Dashboard TMA Intra Hora](assets/img/dashboard-tma-intradia.png)
 
 - **Pontos Altos:**
-  - **Mapeamento de Desvios Extremos:** Destaque gráfico dos intervalos com *Desvios Acima* e *Desvios Abaixo* em relação ao parâmetro do dia.
+  - **Mapeamento de Desvios Extremos:** Destaque gráfico dos intervalos com *Desvios Acima* e *Desvios Abaixo* em relação ao planejado do intervalo.
   - **Análise Comparativa por Turno:** Avaliação da evolução do TMA em relação ao turno anterior e ao valor orçado em forecast.
 
 ---
