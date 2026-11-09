@@ -8,8 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-'   VERSÃO 2.0
-'   ULTIMA ATUALIZAÇÃO: 28/02/2014
+
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Private conn As Object
 Private connStr As String
@@ -281,7 +280,7 @@ conn.Execute (sql)
 
 ExecuteNonQuery = True
 
-'MsgBox "Você executou uma consulta que não retorna dados."
+'MsgBox "Vocï¿½ executou uma consulta que nï¿½o retorna dados."
 
 End Function
 
